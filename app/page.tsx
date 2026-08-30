@@ -1,10 +1,11 @@
 import Authors from "@/components/Authors/Authors";
 import LatestArticles from "@/components/LatestArticles/LatestArticles";
+import LatestArticlesLoading from "@/components/LatestArticles/loading";
 import NewsLoading from "@/components/NewsTicker/loading";
 import LatestPodcasts from "@/components/LatestPodcasts/LatestPodcasts";
 import LatestPodcastsLoading from "@/components/LatestPodcasts/loading";
 import AuthorsLoading from "@/components/Authors/loading";
-import NewsTicker from "@/components/NewsTicker/NewsTicker";
+import NewsTickerSection from "@/components/NewsTicker/NewsTickerSection";
 import PageTitle from "@/components/PageTitle";
 import Subheading from "@/components/Subheading";
 import { Suspense } from "react";
@@ -23,10 +24,12 @@ export default function Home() {
       </PageTitle>
 
       <Suspense fallback={<NewsLoading />}>
-        <NewsTicker />
+        <NewsTickerSection />
       </Suspense>
 
-      <LatestArticles />
+      <Suspense fallback={<LatestArticlesLoading />}>
+        <LatestArticles />
+      </Suspense>
 
       <Subheading
         className="text-subheading"

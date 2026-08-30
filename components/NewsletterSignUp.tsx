@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -57,7 +59,6 @@ export default function NewsletterSignUp({
         alert("Something went wrong");
       }
     }
-    // reset();
   };
 
   return (

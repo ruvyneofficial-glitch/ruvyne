@@ -2,32 +2,20 @@ import Image from "next/image";
 import { siteConfig } from "@/lib/site";
 
 export type CoverTint = {
-  /** Colour multiplied into the shadows of the duotone. */
   shadow: string;
-  /** Colour screened into the highlights of the duotone. */
   highlight: string;
 };
 
 type CoverProps = {
   src: string;
-  /** Describes the photograph only. The overlay text is hidden from assistive tech. */
   photoAlt: string;
-  /** Line under the wordmark, e.g. "Podcast" or "Magazine". */
   kicker: string;
-  /** Bottom-left label, e.g. "EP 01" or "03/2026". */
   cornerLabel: string;
   tint: CoverTint;
   sizes?: string;
-  /** Must establish the box size, e.g. "w-full aspect-square". */
   className?: string;
 };
 
-/**
- * Composes a cover from an unbranded photograph, a duotone wash and live text.
- * The template shipped covers with the brand name flattened into the JPEG, which
- * meant the wordmark could not be changed. Keeping it in the DOM means the mark
- * always tracks siteConfig and stays selectable and translatable.
- */
 export default function Cover({
   src,
   photoAlt,

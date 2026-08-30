@@ -1,89 +1,146 @@
-"use client";
-
-import { useArticleContext } from "@/hooks/useArticleContext";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { useState } from "react";
+import Image from "next/image";
+import {
+  getArticleCards,
+  getArticleCategories,
+} from "@/app/functions/getArticleCards";
 
-export default function Articles() {
-  const { data } = useArticleContext();
-  const [selectedLabel, setSelectedLabel] = useState("All");
+export const PAGE_SIZE = 12;
 
-  const labels: string[] = [
-    "All",
-    ...new Set(
-      data.flatMap((article) => article.articles.map((item) => item.label))
-    ),
-  ];
+type ArticlesProps = {
+  category: string;
+  page: number;
+};
 
-  const filteredArticles = data.flatMap((article) =>
-    article.articles
-      .filter((item) =>
-        selectedLabel === "All" ? true : selectedLabel === item.label
-      )
-      .map((item) => ({
-        ...item,
-        author: article.author,
-      }))
-  );
+function pageHref(category: string, page: number) {
+  const params = new URLSearchParams();
+  if (category && category !== "All") params.set("category", category);
+  if (page > 1) params.set("page", String(page));
+  const qs = params.toString();
+  return qs ? `/magazine?${qs}` : "/magazine";
+}
+
+export default async function Articles({ category, page }: ArticlesProps) {
+  const [categories, { items, total }] = await Promise.all([
+    getArticleCategories(),
+    getArticleCards({
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
+      label: category,
+    }),
+  ]);
+
+  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
     <div className="max-w-[95rem] w-full mx-auto">
       <div className="flex flex-wrap justify-between items-center gap-2 md:gap-0 my-6">
         <p className="font-semibold uppercase">Categories</p>
-        {data && (
-          <div className="flex flex-wrap gap-2">
-            {labels.map((label, index) => (
-              <Button
-                className={`px-3 py-2 bg-white text-black hover:bg-black hover:text-white border border-black rounded-full ${
-                  label === selectedLabel
+        <div className="flex flex-wrap gap-2">
+          {categories.map((label) => {
+            const active = label === category;
+            return (
+              <Link
+                key={label}
+                href={pageHref(label, 1)}
+                aria-current={active ? "page" : undefined}
+                className={`px-3 py-2 border border-black rounded-full transition ${
+                  active
                     ? "bg-black text-white"
-                    : "border-black"
+                    : "bg-white text-black hover:bg-black hover:text-white"
                 }`}
-                key={index}
-                onClick={() => setSelectedLabel(label)}
               >
                 {label}
-              </Button>
-            ))}
-          </div>
-        )}
+              </Link>
+            );
+          })}
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-black border-collapse mb-48">
-        {filteredArticles.map((articleData, index) => (
-          <article className="border border-black p-8" key={index}>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-black border-collapse">
+        {items.map((article) => (
+          <article className="border border-black p-8" key={article.slug}>
             <div className="flex items-center justify-between">
-              <time dateTime={articleData.date}>{articleData.date}</time>
+              <time dateTime={article.date}>{article.date}</time>
               <span className="px-3 py-2 border border-black rounded-full">
-                <p className="uppercase">{articleData.label}</p>
+                <p className="uppercase">{article.label}</p>
               </span>
             </div>
-            <Link href={`magazine/${articleData.slug}`}>
-              <img
+            <Link href={`/magazine/${article.slug}`}>
+              <Image
                 className="w-full my-8 hover:scale-105 transition"
-                src={articleData.img}
-                alt={articleData.imgAlt}
+                src={article.img}
+                alt={article.imgAlt}
+                width={600}
+                height={600}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </Link>
             <h2 className="heading3-title mb-3">
-              <Link href={`/magazine/${articleData.slug}`}>
-                {articleData.title}
-              </Link>
+              <Link href={`/magazine/${article.slug}`}>{article.title}</Link>
             </h2>
-            <p className="mt-3 mb-12">{articleData.description}</p>
+            <p className="mt-3 mb-12">{article.description}</p>
             <div className="flex flex-wrap gap-4">
               <span className="flex">
                 <p className="font-semibold pr-2">Text</p>
-                <p>{articleData.author}</p>
+                <p>{article.author}</p>
               </span>
               <span className="flex">
                 <p className="font-semibold pr-2">Duration</p>
-                <p>{articleData.read}</p>
+                <p>{article.read}</p>
               </span>
             </div>
           </article>
         ))}
       </div>
+
+      {items.length === 0 && (
+        <p className="py-12">No articles in this category yet.</p>
+      )}
+
+      <nav
+        className="flex flex-wrap items-center justify-between gap-4 my-12 mb-48"
+        aria-label="Pagination"
+      >
+        <p>
+          Showing {items.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1} to{" "}
+          {(page - 1) * PAGE_SIZE + items.length} of {total}
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          {page > 1 && (
+            <Link
+              href={pageHref(category, page - 1)}
+              className="px-4 py-2 border border-black rounded-full bg-white text-black hover:bg-black hover:text-white transition"
+              rel="prev"
+            >
+              Previous
+            </Link>
+          )}
+          {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
+            <Link
+              key={n}
+              href={pageHref(category, n)}
+              aria-current={n === page ? "page" : undefined}
+              className={`px-4 py-2 border border-black rounded-full transition ${
+                n === page
+                  ? "bg-black text-white"
+                  : "bg-white text-black hover:bg-black hover:text-white"
+              }`}
+            >
+              {n}
+            </Link>
+          ))}
+          {page < pageCount && (
+            <Link
+              href={pageHref(category, page + 1)}
+              className="px-4 py-2 border border-black rounded-full bg-white text-black hover:bg-black hover:text-white transition"
+              rel="next"
+            >
+              Next
+            </Link>
+          )}
+        </div>
+      </nav>
     </div>
   );
 }

@@ -1,26 +1,14 @@
 type LogoMarkProps = {
-  /** Sizing and colour classes, e.g. "h-10 w-auto text-white". */
   className?: string;
-  /**
-   * Accessible name. Omit when the mark sits next to the Wordmark, which already
-   * names the brand; the mark is then hidden from assistive tech as decoration.
-   */
   label?: string;
+  style?: React.CSSProperties;
 };
 
-/**
- * The Ruvyne mark: the RV monogram with the figure, pendant lamp, books and vase.
- *
- * The wordmark is deliberately not part of this component. It stays live text in
- * components/Wordmark.tsx so the brand name is only ever written in lib/site.ts.
- * The full lockup, mark and wordmark together, lives in public/logo.svg for social
- * cards and print.
- *
- * The monogram is painted in currentColor, so the mark inherits the surrounding
- * text colour: black in the header, white on the black footer. The illustration
- * uses the neutral scale from app/globals.css, which reads on either ground.
- */
-export default function LogoMark({ className = "", label }: LogoMarkProps) {
+export default function LogoMark({
+  className = "",
+  label,
+  style,
+}: LogoMarkProps) {
   const leaf = "M0 0 C 10 -12 30 -14 40 -6 C 30 4 10 6 0 0 Z";
 
   return (
@@ -28,6 +16,7 @@ export default function LogoMark({ className = "", label }: LogoMarkProps) {
       viewBox="194 180 792 588"
       fill="none"
       className={className}
+      style={style}
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
@@ -35,7 +24,6 @@ export default function LogoMark({ className = "", label }: LogoMarkProps) {
     >
       {label ? <title>{label}</title> : null}
 
-      {/* Still life: pendant lamp, books, vase and branch */}
       <g>
         <path
           d="M690 336 C 730 290 812 290 852 336"
@@ -77,7 +65,6 @@ export default function LogoMark({ className = "", label }: LogoMarkProps) {
         <path d={leaf} fill="#737373" transform="translate(922 482) rotate(-156) scale(-1 1)" />
       </g>
 
-      {/* RV monogram */}
       <g transform="translate(-40 0)" fill="currentColor">
         <path
           fillRule="evenodd"
@@ -95,7 +82,6 @@ export default function LogoMark({ className = "", label }: LogoMarkProps) {
         <path d="M596 206 L668 206 L748 470 L812 206 L856 206 L764 560 L700 560 Z" />
       </g>
 
-      {/* Connecting swash */}
       <path
         d="M236 500 C 350 424 486 470 580 578 C 664 674 792 712 902 668
            C 946 650 944 602 908 594"
@@ -104,7 +90,6 @@ export default function LogoMark({ className = "", label }: LogoMarkProps) {
         strokeLinecap="round"
       />
 
-      {/* Figure: wide-brimmed hat and flowing cape */}
       <g transform="translate(-44 0)">
         <ellipse cx="312" cy="424" rx="98" ry="20" fill="#A3A3A3" />
         <path

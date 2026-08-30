@@ -1,14 +1,8 @@
 type PageTitleProps = {
   children: React.ReactNode;
   className?: string;
-  /** Path to a pre-drawn display wordmark. Mutually exclusive with `wordmark`. */
   imgSrc?: string;
   imgAlt?: string;
-  /**
-   * Renders the display wordmark as live text in the site typeface instead of a
-   * pre-drawn SVG file. Used where the wording is brand copy that can change,
-   * so there is no outlined-letterform asset to keep in sync.
-   */
   wordmark?: string;
 };
 

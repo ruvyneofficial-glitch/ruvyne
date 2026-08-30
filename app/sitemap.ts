@@ -1,15 +1,15 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { getArticles } from "@/app/functions/getArticles";
-import { getPodcasts } from "@/app/functions/getPodcasts";
+import { getArticleSlugs } from "@/app/functions/getArticleBySlug";
+import { getAuthorSlugs } from "@/app/functions/getAuthors";
+import { getPodcastSlugs } from "@/app/functions/getPodcasts";
 
-/**
- * Generated from the content data so slugs can never drift out of sync,
- * replacing the hand-written sitemap.xml that shipped with the template.
- */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const authors = await getArticles();
-  const podcasts = await getPodcasts();
+  const [articles, authors, podcasts] = await Promise.all([
+    getArticleSlugs(),
+    getAuthorSlugs(),
+    getPodcastSlugs(),
+  ]);
   const lastModified = new Date();
 
   const staticRoutes = ["", "/magazine", "/podcasts", "/authors"].map(
@@ -19,27 +19,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const authorRoutes = authors.map((author) => ({
-    url: `${siteConfig.url}/authors/${encodeURIComponent(author.slug)}`,
-    lastModified,
-  }));
-
-  const articleRoutes = authors.flatMap((author) =>
-    author.articles.map((article) => ({
-      url: `${siteConfig.url}/magazine/${article.slug}`,
-      lastModified,
-    }))
-  );
-
-  const podcastRoutes = podcasts.map((podcast) => ({
-    url: `${siteConfig.url}/podcasts/${podcast.slug}`,
-    lastModified,
-  }));
-
   return [
     ...staticRoutes,
-    ...authorRoutes,
-    ...articleRoutes,
-    ...podcastRoutes,
+    ...authors.map((slug) => ({
+      url: `${siteConfig.url}/authors/${encodeURIComponent(slug)}`,
+      lastModified,
+    })),
+    ...articles.map((slug) => ({
+      url: `${siteConfig.url}/magazine/${slug}`,
+      lastModified,
+    })),
+    ...podcasts.map((slug) => ({
+      url: `${siteConfig.url}/podcasts/${slug}`,
+      lastModified,
+    })),
   ];
 }

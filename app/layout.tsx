@@ -1,18 +1,11 @@
-import Container from "@/components/ui/container";
+import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import PodcastContextProvider from "@/context/PodcastContext";
-import ArticleContextProvider from "@/context/ArticleContext";
 import { siteConfig } from "@/lib/site";
 
-/**
- * The wordmark serif. Body copy stays General Sans; this face is used only by
- * components/Wordmark.tsx, so the live-text wordmark matches the logo artwork
- * in public/logo.svg.
- */
 const wordmarkFont = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["500"],
@@ -33,15 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${wordmarkFont.variable}`}>
       <body>
-        <ArticleContextProvider>
-          <PodcastContextProvider>
-            <Container>
-              <Header />
-              {children}
-              <Footer />
-            </Container>
-          </PodcastContextProvider>
-        </ArticleContextProvider>
+        <SiteChrome header={<Header />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

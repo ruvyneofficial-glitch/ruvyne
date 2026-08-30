@@ -2,18 +2,21 @@ import NewsletterSignUp from "./NewsletterSignUp";
 import PopularArticles from "./PopularArticles";
 import Cover from "./Cover";
 import { Button } from "./ui/button";
+import { getSiteSettings } from "@/app/functions/getSiteSettings";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const settings = await getSiteSettings();
+
   return (
     <aside>
       <h3 className="uppercase font-semibold mb-2">Print edition</h3>
-      <p className="text-5xl font-semibold">03/2026</p>
+      <p className="text-5xl font-semibold">{settings.printIssue}</p>
       <Cover
         className="w-[20rem] aspect-[3/4] mt-8 mb-4"
-        src="/images/homepage/magazine-cover.jpg"
-        photoAlt="A black and white portrait photograph used as the cover of the current print edition"
+        src={settings.printCover}
+        photoAlt={settings.printCoverAlt}
         kicker="Magazine"
-        cornerLabel="03/2026"
+        cornerLabel={settings.printIssue}
         tint={{ shadow: "#6b4a3f", highlight: "#d8b7a4" }}
         sizes="320px"
       />

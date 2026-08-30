@@ -25,7 +25,6 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        // Wordmark only. Body copy stays General Sans, set on html in globals.css.
         wordmark: [
           "var(--font-wordmark)",
           "Didot",

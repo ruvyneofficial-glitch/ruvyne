@@ -2,7 +2,6 @@ import { PodcastType, getPodcasts } from "@/app/functions/getPodcasts";
 import LatestPodcasts from "@/components/LatestPodcasts/LatestPodcasts";
 import PostNavigation from "@/components/PostNavigation";
 import SocialSharing from "@/components/SocialSharing";
-import PodcastContextProvider from "@/context/PodcastContext";
 import Cover from "@/components/Cover";
 import { pageTitle } from "@/lib/site";
 
@@ -144,9 +143,7 @@ export default async function PodcastDetails({
           <h2 className="text-blog-subheading border-t-2 border-black mt-[9.5rem] pt-12 pb-12 md:pb-24">
             Latest Episodes
           </h2>
-          <PodcastContextProvider limit={3}>
-            <LatestPodcasts />
-          </PodcastContextProvider>
+          <LatestPodcasts />
         </div>
       </main>
     );

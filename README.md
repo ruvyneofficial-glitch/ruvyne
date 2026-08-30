@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="public/logo.svg" alt="" width="200" height="200" />
+
 <h1>Ruvyne</h1>
 
 <p>Beauty, Fashion &amp; Home</p>
@@ -12,6 +14,7 @@ Ruvyne is an editorial magazine site for beauty, fashion and home decor: article
 
 ```bash
 npm install
+cp .env.example .env   # then fill in the Sanity values
 npm run dev
 ```
 
@@ -53,15 +56,16 @@ app/functions Data access and formatting helpers
 components/   UI components, including components/ui (shadcn/ui primitives)
 context/      Article and podcast context providers
 hooks/        Custom hooks that read the context stores
-json/         Article, author, podcast and news content
-lib/          Site config, Zod schemas and shared utilities
+json/         Seed content, and the fallback used if Sanity is unreachable
+lib/          Site config, Sanity client, Zod schemas and shared utilities
+sanity/       Content schemas (author, article, podcast, newsItem, siteSettings)
 public/       Images and self-hosted fonts
 ```
 
 ## Features
 
 - App Router pages as React Server Components, with React Suspense and per route `loading.tsx` skeletons
-- Article, author and podcast pages rendered from local JSON content
+- Article, author and podcast content managed in Sanity, with the bundled JSON as an offline fallback
 - Category filtering on the magazine index
 - React Context providers for article and podcast data, read through custom hooks
 - Newsletter signup using React Hook Form with a Zod schema, validated again server side in `app/api/subscribe`
@@ -72,6 +76,36 @@ public/       Images and self-hosted fonts
 - Playwright end to end tests across multiple browsers, with accessibility assertions via `@axe-core/playwright`
 - Husky pre commit hook running lint and tests
 - Custom designed 404 page
+
+## Content
+
+Content lives in Sanity. The schemas are in `sanity/schemas`: `author`, `article`, `podcast`, `newsItem` and `siteSettings`.
+
+The seed set is 6 authors, 30 articles balanced across Beauty, Fashion and Home Decor, 5 podcast episodes and 3 ticker lines.
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Project id. Public identifier, safe in the bundle |
+| `NEXT_PUBLIC_SANITY_DATASET` | Dataset name, normally `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | API version date |
+
+Every variable is public by design. The site never writes to Sanity, so no write token is needed or stored anywhere. Content is edited in the Studio at `/studio`, which authenticates each editor through their own Sanity login.
+
+Reads go through `lib/sanity.client.ts`, which queries the public API over plain `fetch` and sends no token at all. The dataset ACL is public, so reads are unauthenticated and served from the CDN. This avoids `@sanity/client` inside the app on purpose: the providers in `context/` are client components, and the SDK's Node build pulls in `undici`, whose private class fields cannot be parsed by the webpack client bundler.
+
+The getters in `app/functions/` are an adapter. They query Sanity and rebuild the exact nested shape the pages already expect, including the fixed 5-slot positional `content` array. That is why moving to a CMS needed no component changes. Rendered output was diffed page by page before and after the switch, and the visible text was identical on every route.
+
+If a query fails, each getter falls back to the JSON in `json/`. That matters because `app/sitemap.ts` and the three `generateMetadata` functions call the getters at build time, where an uncaught error would fail the entire build rather than one page. Verified by building against a deliberately invalid project id: the build still succeeds.
+
+### Images
+
+Images are Sanity assets. Editors upload them in the Studio and never touch the codebase or a file path. They are served from `cdn.sanity.io`, which is the single entry in `images.remotePatterns` in `next.config.js`; `next/image` rejects any host not listed there.
+
+The getters resolve each reference to a URL with `img.asset->url`, so components still receive a plain `src` string and did not change.
+
+Every image field is marked required in the schema. If one is somehow empty, the getter falls back per image to the bundled copy under `public/`, because `next/image` throws on an empty `src` and would take out the whole page rather than one picture. That is also why `public/images` is still in the repo.
+
+`siteSettings` is a single document holding the print edition issue number and cover, which were previously hardcoded in the sidebar.
 
 ## Branding
 

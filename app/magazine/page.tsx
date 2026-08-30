@@ -10,7 +10,15 @@ export const metadata = {
     "Beauty, fashion and home decor stories from our team of writers and editors",
 };
 
-export default function MagazinePage() {
+type MagazinePageProps = {
+  searchParams: { category?: string; page?: string };
+};
+
+export default function MagazinePage({ searchParams }: MagazinePageProps) {
+  const category = searchParams.category ?? "All";
+  const parsed = Number(searchParams.page);
+  const page = Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 1;
+
   return (
     <main className="flex flex-col min-h-screen max-w-[95rem] w-full mx-auto px-4 lg:pt-0 sm:pt-4 xs:pt-2 lg:pb-4 md:pb-4 sm:pb-2 xs:pb-2">
       <PageTitle
@@ -20,8 +28,8 @@ export default function MagazinePage() {
       >
         Magazine
       </PageTitle>
-      <Suspense fallback={<Loading />}>
-        <Articles />
+      <Suspense key={`${category}-${page}`} fallback={<Loading />}>
+        <Articles category={category} page={page} />
       </Suspense>
     </main>
   );

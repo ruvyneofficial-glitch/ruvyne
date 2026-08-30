@@ -103,7 +103,6 @@
   }
   .text-subheading {
     font-weight: 600;
-    /* font-size: clamp(3.25rem, 2.4853rem + 3.8235vw, 6.5rem); */
     font-size: clamp(2.25rem, 1.6429rem + 3.0357vw, 6.5rem);
     text-transform: uppercase;
     line-height: 1;
@@ -121,10 +120,6 @@
     text-transform: uppercase;
   }
 }
-
-/* * {
-  outline: 1px solid red;
-} */
 
 @font-face {
   font-family: "General Sans";
