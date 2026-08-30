@@ -1,0 +1,29 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="242 78 604 604"
+  width="604"
+  height="604"
+  fill="none"
+  role="img"
+  aria-label="Ruvyne"
+>
+  <title>Ruvyne</title>
+
+  <!--
+    Favicon. The monogram alone, without the illustration, so it survives being
+    rendered at 16px. Same geometry as components/LogoMark.tsx and public/logo.svg.
+  -->
+  <g transform="translate(-40 0)" fill="#000000">
+    <path d="M300 200 H400 V214 H372 V546 H410 V560 H292 V546 H320 V214 H300 Z" />
+    <path
+      fill-rule="evenodd"
+      d="M366 200 C 470 200 520 236 520 290 C 520 344 470 380 366 380 Z
+         M366 236 V344 C 442 344 472 326 472 290 C 472 254 442 236 366 236 Z"
+    />
+    <path d="M404 372 H452 L560 560 H500 Z" />
+
+    <path d="M580 200 H684 V214 H596 Z" />
+    <path d="M800 200 H876 V214 H812 Z" />
+    <path d="M596 206 L668 206 L748 470 L812 206 L856 206 L764 560 L700 560 Z" />
+  </g>
+</svg>

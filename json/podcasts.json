@@ -1,0 +1,127 @@
+[
+  {
+    "id": 5,
+    "episode": "Episode 05",
+    "title": "The quiet luxury backlash",
+    "img": "/images/podcasts/preview/podcast-cover-ep05.jpg",
+    "imgAlt": "Black and white portrait photograph of this episode's guest",
+    "tint": {
+      "shadow": "#0d3b45",
+      "highlight": "#4fb3c9"
+    },
+    "date": "16 March 2026",
+    "duration": "1hr 20min",
+    "slug": "the-quiet-luxury-backlash",
+    "content": [
+      {
+        "summary": "Three years of unbranded cashmere and muted palettes later, the industry is asking an uncomfortable question: was quiet luxury ever about restraint, or just a more expensive way to signal the same thing?",
+        "section1": "Quiet luxury arrived as a correction. After a decade of monograms and logo-heavy drops, the appeal of a coat that announced nothing was obvious. Buyers talked about longevity, about fabric weight, about the pleasure of owning something that did not date. For a while the argument held.\n\nWhat changed was the price of entry. A garment stripped of visible branding still has to communicate its value somehow, and it does so through material and cut, both of which are expensive. The result is a category that reads as understated to people who already know what they are looking at, and as unremarkable to everyone else. That is not restraint. It is a narrower audience.\n\nOur guest has spent fifteen years buying for independent stockists and watched the shift from the inside. Her argument is that the trend did something useful in spite of itself: it moved the conversation from labels to construction, and once buyers learn to read a seam they do not unlearn it.",
+        "quote": [
+          "Restraint is not the same as neutrality. A beige coat is still a statement, it is just a statement about who you expect to be reading it.",
+          "Camille Osei"
+        ],
+        "section2": "The counter-argument is that the backlash is overdue and not especially deep. Colour is returning to the collections, but the underlying economics have not moved. The garments that last are still the ones made slowly, in small runs, by people paid properly, and no amount of palette change alters that.\n\nWhere the conversation gets more interesting is repair. Several of the houses that built their reputation on quiet luxury now run in-house repair programmes, and the uptake has been higher than anyone forecast. If a coat is genuinely built to last twenty years, the business has to make its money somewhere other than replacement.\n\nWe close on what comes next. Not maximalism, our guest thinks, but something less legible than either extreme: wardrobes assembled slowly, across decades, with no coherent aesthetic argument at all beyond the fact that the wearer likes the things in it."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "episode": "Episode 04",
+    "title": "What a skincare routine actually needs",
+    "img": "/images/podcasts/preview/podcast-cover-ep04.jpg",
+    "imgAlt": "Black and white portrait photograph of this episode's guest",
+    "tint": {
+      "shadow": "#5a3a1e",
+      "highlight": "#e0b070"
+    },
+    "date": "2 March 2026",
+    "duration": "58min",
+    "slug": "what-a-skincare-routine-actually-needs",
+    "content": [
+      {
+        "summary": "A consultant dermatologist walks us through the short list of ingredients with real evidence behind them, and explains why the ten-step routine is mostly a retail strategy.",
+        "section1": "The honest version of a skincare routine is shorter than the industry would like. Sunscreen, a retinoid if your skin tolerates one, and something to manage barrier function. Most of what sits between those three products in a bathroom cabinet is doing very little, and some of it is actively working against the rest.\n\nOur guest is careful not to be dismissive. Pleasure matters, and a texture someone enjoys is a product they will actually use, which counts for more than a superior formulation abandoned after a fortnight. The problem is not that people enjoy their routines. It is that the marketing has trained buyers to read complexity as efficacy.\n\nWe spend a while on actives, and specifically on the habit of layering several at once. The interactions are real, the irritation is common, and the recovery time is longer than most people expect.",
+        "quote": [
+          "If a product needs a diagram to explain where it sits in your routine, that diagram is doing marketing work, not clinical work.",
+          "Dr Ines Halvorsen"
+        ],
+        "section2": "The section on sunscreen is the one worth replaying. Daily use is the single intervention with the strongest evidence behind it for both ageing and skin cancer risk, and it remains the step people skip first when a routine gets trimmed. Formulation has improved enormously, which removes most of the old excuses about texture and cast.\n\nOn cost, our guest is blunt. Above a fairly low threshold the price of a product tells you about packaging, distribution and brand rather than what it will do for your skin. There are excellent retinoids and excellent sunscreens available cheaply, and paying more mainly buys a nicer experience.\n\nWe finish with the question she gets asked most: how long before anything works. The answer is twelve weeks for most actives, which is roughly eleven weeks longer than the average person gives a new product before deciding it has failed."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "episode": "Episode 03",
+    "title": "Designing a home that ages well",
+    "img": "/images/podcasts/preview/podcast-cover-ep03.jpg",
+    "imgAlt": "Black and white portrait photograph of this episode's guest",
+    "tint": {
+      "shadow": "#3d2440",
+      "highlight": "#b98fc4"
+    },
+    "date": "16 February 2026",
+    "duration": "1hr 05min",
+    "slug": "designing-a-home-that-ages-well",
+    "content": [
+      {
+        "summary": "An interior architect on patina, on the materials that improve with wear, and on why the rooms that photograph best are often the ones hardest to live in.",
+        "section1": "There is a category of interior that looks finished on the day it is completed and worse every day after. Our guest calls these rooms brittle. Everything in them depends on staying exactly as installed, so every scuff reads as damage rather than history.\n\nThe alternative is to choose materials that have somewhere to go. Unlacquered brass, oiled timber, lime plaster, wool, leather. All of them change, and all of them change in a direction most people find agreeable. The design decision is made once, at specification, and then the room does the rest of the work on its own.\n\nWe talk about the practical cost of this. Materials that age well are usually more expensive up front and require a tolerance for the awkward middle period, when a surface no longer looks new but has not yet settled into anything you would call patina.",
+        "quote": [
+          "A room should be allowed to keep a record of the people in it. If every mark is a defect, you have designed a museum.",
+          "Teodor Lindqvist"
+        ],
+        "section2": "The conversation turns to lighting, which our guest considers the most commonly botched element in a domestic interior. The failure is almost always the same: a single bright source in the ceiling, doing all the work, flattening the room and everyone in it. The fix is unglamorous and cheap, which is several lamps at different heights.\n\nOn colour he is more relaxed than expected. Paint is the least permanent decision in a house and the one people agonise over most, while flooring and joinery, which are genuinely difficult to reverse, get decided in an afternoon.\n\nHis closing advice is to live in a space through one full year before committing to anything structural. Light changes across seasons in ways that are difficult to predict from a viewing in March, and rooms reveal their actual use patterns slowly."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "episode": "Episode 02",
+    "title": "The second life of vintage tailoring",
+    "img": "/images/podcasts/preview/podcast-cover-ep02.jpg",
+    "imgAlt": "Black and white portrait photograph of this episode's guest",
+    "tint": {
+      "shadow": "#5e3225",
+      "highlight": "#d99a7a"
+    },
+    "date": "2 February 2026",
+    "duration": "1hr 12min",
+    "slug": "the-second-life-of-vintage-tailoring",
+    "content": [
+      {
+        "summary": "A tailor who has spent twenty years altering mid-century suiting explains what the old garments get right, and why so much of it cannot be reproduced at current prices.",
+        "section1": "Open up a jacket made in 1958 and the difference is structural. Horsehair canvas, floating rather than fused, hand-padded through the lapel roll. It takes hours, it cannot be automated, and it is the reason a sixty-year-old jacket still holds its shape while a fused garment from last season has already bubbled at the front edge.\n\nOur guest is unsentimental about the rest of it. The fabrics were often heavier than anyone wants now, the fit conventions were unforgiving, and a great deal of what survives in vintage shops survived precisely because nobody wanted to wear it. Survivorship makes the past look better than it was.\n\nWhat interests him is the alteration work. A well-made jacket carries enough inlay in the seams to be recut substantially, which means a garment can be adapted to a new wearer two or three times across its life.",
+        "quote": [
+          "The suit was designed to be altered. We stopped building in the allowance, and then we wondered why nothing lasted past one owner.",
+          "Marek Sandoval"
+        ],
+        "section2": "We get into the economics, which are difficult. A full canvas jacket made properly in Europe cannot be sold cheaply, and the customers willing to pay are a small and ageing group. Several of the workshops that trained our guest have closed in the last decade, taking their apprenticeships with them.\n\nThere is a more optimistic thread about where the skills are going. Alteration and repair work is growing even as new commissions shrink, and it turns out to be a viable route into the trade for people who could never have afforded a traditional apprenticeship.\n\nHis advice for buying vintage is specific and worth writing down: check the shoulders first, since they cannot be meaningfully altered, then the inlay at the centre back seam. Almost everything else is negotiable."
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "episode": "Episode 01",
+    "title": "Colour, and how to live with it",
+    "img": "/images/podcasts/preview/podcast-cover-ep01.jpg",
+    "imgAlt": "Black and white portrait photograph of this episode's guest",
+    "tint": {
+      "shadow": "#1e2f4d",
+      "highlight": "#8fa8cc"
+    },
+    "date": "19 January 2026",
+    "duration": "1hr 02min",
+    "slug": "colour-and-how-to-live-with-it",
+    "content": [
+      {
+        "summary": "A colourist who works across cosmetics and interiors on why the same principles govern both, and why almost everyone tests paint colours in the wrong place.",
+        "section1": "Our guest has an unusual career, having moved from cosmetic formulation into architectural paint. Her argument is that the two disciplines are closer than either industry admits, because both are ultimately about how a pigment behaves under light that the maker does not control.\n\nThe practical consequence is that context beats swatch. A colour chosen under retail lighting, held against a white card, tells you almost nothing about how it will read on a north-facing wall in February or against the skin of the person wearing it.\n\nShe recommends the same test in both fields. Live with the colour in the actual conditions, at several times of day, for longer than feels necessary. In cosmetics that means natural light and no mirror in a shop. In interiors it means a large painted board moved around the room across a week.",
+        "quote": [
+          "There is no such thing as a colour on its own. There is only a colour next to another colour, under a particular light, on a particular day.",
+          "Naomi Bregman"
+        ],
+        "section2": "We cover undertone at some length, since it is the concept that causes the most confusion and does the most work. Two greys that look identical on a chart can sit completely differently in a room because one carries green and the other carries violet, and the same is true of a foundation against skin.\n\nThe discussion of trend cycles is sharper than expected. Colour forecasting is a real commercial function with real lead times, and by the time a shade reaches a high street shelf the decision behind it is roughly two years old. Knowing this makes it easier to ignore.\n\nHer closing position is permissive. Most people are far more cautious with colour than they need to be, largely because they treat every choice as permanent. Paint is not permanent, and neither is a lipstick."
+      }
+    ]
+  }
+]

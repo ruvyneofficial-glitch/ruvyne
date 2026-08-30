@@ -1,0 +1,142 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 1024 1024"
+  width="1024"
+  height="1024"
+  fill="none"
+  role="img"
+  aria-labelledby="ruvyne-logo-title ruvyne-logo-desc"
+>
+  <title id="ruvyne-logo-title">Ruvyne</title>
+  <desc id="ruvyne-logo-desc">
+    RV monogram framed by a figure in a wide-brimmed hat, a pendant lamp, a stack
+    of books and a vase of foliage, above the Ruvyne wordmark.
+  </desc>
+
+  <!--
+    Full lockup, for social cards, print and anywhere the mark is used on its own.
+    In the app itself the mark comes from components/LogoMark.tsx and the wordmark
+    from components/Wordmark.tsx, so the brand name stays live text.
+
+    Palette is the site palette from app/globals.css and tailwind.config.ts:
+    ink is currentColor (black by default, white when placed on the black footer),
+    supported by the neutral scale #737373, #A3A3A3 and #E5E5E5.
+    Background is intentionally transparent.
+  -->
+  <style>
+    .ink { fill: currentColor; }
+    .mid { fill: #737373; }
+    .soft { fill: #A3A3A3; }
+    .pale { fill: #E5E5E5; }
+    .stroke-mid { stroke: #737373; fill: none; stroke-linecap: round; }
+    .stroke-soft { stroke: #A3A3A3; fill: none; stroke-linecap: round; }
+  </style>
+
+  <defs>
+    <path id="ruvyne-leaf" d="M0 0 C 10 -12 30 -14 40 -6 C 30 4 10 6 0 0 Z" />
+  </defs>
+
+  <!-- Still life: pendant lamp, books, vase and branch -->
+  <g>
+    <path class="stroke-soft" stroke-width="6" d="M690 336 C 730 290 812 290 852 336" />
+    <path class="stroke-soft" stroke-width="5" d="M771 302 L771 392" />
+    <rect class="mid" x="764" y="388" width="14" height="20" rx="3" />
+    <path class="mid" d="M716 452 C 724 408 818 408 826 452 Z" />
+
+    <rect class="pale" x="722" y="546" width="112" height="20" rx="3" />
+    <rect class="mid" x="712" y="570" width="132" height="22" rx="3" />
+    <rect class="soft" x="718" y="596" width="120" height="20" rx="3" />
+
+    <rect class="soft" x="854" y="616" width="44" height="10" rx="4" />
+    <path
+      class="pale"
+      d="M862 626 L862 642 C 830 658 820 700 838 724 C 856 748 900 748 916 722
+         C 932 696 918 656 890 642 L890 626 Z"
+    />
+
+    <path class="stroke-mid" stroke-width="5" d="M876 612 C 900 560 920 512 952 478" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="soft" transform="translate(884 574) rotate(-38)" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="mid" transform="translate(880 566) rotate(-142) scale(-1 1)" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="soft" transform="translate(902 528) rotate(-30)" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="mid" transform="translate(898 520) rotate(-150) scale(-1 1)" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="soft" transform="translate(926 490) rotate(-24)" />
+    <use href="#ruvyne-leaf" xlink:href="#ruvyne-leaf" class="mid" transform="translate(922 482) rotate(-156) scale(-1 1)" />
+  </g>
+
+  <!-- RV monogram -->
+  <g transform="translate(-40 0)">
+    <path
+      class="ink"
+      fill-rule="evenodd"
+      d="M300 200 H400 V214 H372 V546 H410 V560 H292 V546 H320 V214 H300 Z"
+    />
+    <path
+      class="ink"
+      fill-rule="evenodd"
+      d="M366 200 C 470 200 520 236 520 290 C 520 344 470 380 366 380 Z
+         M366 236 V344 C 442 344 472 326 472 290 C 472 254 442 236 366 236 Z"
+    />
+    <path class="ink" d="M404 372 H452 L560 560 H500 Z" />
+
+    <path class="ink" d="M580 200 H684 V214 H596 Z" />
+    <path class="ink" d="M800 200 H876 V214 H812 Z" />
+    <path
+      class="ink"
+      d="M596 206 L668 206 L748 470 L812 206 L856 206 L764 560 L700 560 Z"
+    />
+  </g>
+
+  <!-- Connecting swash -->
+  <path
+    class="stroke-mid"
+    stroke-width="16"
+    d="M236 500 C 350 424 486 470 580 578 C 664 674 792 712 902 668
+       C 946 650 944 602 908 594"
+  />
+
+  <!--
+    Figure: wide-brimmed hat and flowing cape. The hat sits in the neutral greys
+    rather than in ink so it stays legible where it crosses the black R stem.
+  -->
+  <g transform="translate(-44 0)">
+    <ellipse class="soft" cx="312" cy="424" rx="98" ry="20" />
+    <path class="mid" d="M262 424 C 264 380 282 354 316 354 C 350 354 366 380 368 424 Z" />
+    <path class="pale" d="M266 410 C 300 420 336 420 366 410 L368 424 C 336 434 294 434 262 424 Z" />
+
+    <path
+      class="pale"
+      d="M330 468 C 300 480 276 512 268 560 C 256 630 250 672 258 712
+         C 330 726 420 714 500 686 C 440 640 392 574 366 486 Z"
+    />
+    <path
+      class="soft"
+      d="M330 468 C 320 540 330 620 372 690 C 340 700 300 704 262 700
+         C 252 640 268 540 300 486 Z"
+    />
+    <path class="mid" d="M326 464 C 346 468 358 480 364 496 C 344 502 328 496 318 484 Z" />
+  </g>
+
+  <!-- Wordmark and rule -->
+  <text
+    class="ink"
+    x="512"
+    y="836"
+    text-anchor="middle"
+    font-family="Cormorant Garamond, Didot, Georgia, 'Times New Roman', serif"
+    font-weight="500"
+    font-size="128"
+    letter-spacing="26"
+    dx="13"
+  >RUVYNE</text>
+
+  <g>
+    <rect class="soft" x="296" y="899" width="176" height="2" />
+    <rect class="soft" x="552" y="899" width="176" height="2" />
+    <path
+      class="mid"
+      d="M512 872 C 514 890 522 898 540 900 C 522 902 514 910 512 928
+         C 510 910 502 902 484 900 C 502 898 510 890 512 872 Z"
+    />
+  </g>
+</svg>
