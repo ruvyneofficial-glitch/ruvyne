@@ -9,4 +9,3 @@ export const siteConfig = {
 export function pageTitle(segment?: string) {
   return segment ? `${segment} | ${siteConfig.name}` : siteConfig.name;
 }
-// hgfhg
