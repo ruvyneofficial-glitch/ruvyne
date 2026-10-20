@@ -1,5 +1,6 @@
 import podcastsData from "@/json/podcasts.json";
 import { sanityFetch } from "@/lib/sanity.client";
+import { formatDate, toIsoDate } from "@/lib/dates";
 import type { CoverTint } from "@/components/Cover";
 
 export type PodcastType = {
@@ -9,6 +10,7 @@ export type PodcastType = {
   imgAlt: string;
   tint: CoverTint;
   date: string;
+  isoDate?: string;
   duration: string;
   episode: string;
   slug: string;
@@ -74,7 +76,8 @@ function adapt(podcasts: SanityPodcast[]): PodcastType[] {
     img: coverUrl(p.img, p.slug),
     imgAlt: p.imgAlt,
     tint: { shadow: p.tintShadow, highlight: p.tintHighlight },
-    date: p.date,
+    date: formatDate(p.date),
+    isoDate: toIsoDate(p.date),
     duration: p.duration,
     episode: p.episode,
     slug: p.slug,
@@ -94,7 +97,10 @@ export async function getPodcasts(): Promise<PodcastType[]> {
 
   if (data && data.length > 0) return adapt(data);
 
-  return podcastsData as PodcastType[];
+  return (podcastsData as PodcastType[]).map((p) => ({
+    ...p,
+    isoDate: toIsoDate(p.date),
+  }));
 }
 
 export async function getPodcastSlugs(): Promise<string[]> {

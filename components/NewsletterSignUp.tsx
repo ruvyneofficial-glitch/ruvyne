@@ -62,13 +62,15 @@ export default function NewsletterSignUp({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`${formClassName}`}>
-      <div className={`${formFieldsClassName}`}>
+    <form onSubmit={handleSubmit(onSubmit)} className={formClassName} noValidate>
+      <div className={formFieldsClassName}>
         <Input
           {...register("email")}
           className={`mb-2 ${inputClassName}`}
-          type="text"
-          placeholder="Email Address"
+          type="email"
+          placeholder="Email address"
+          aria-label="Email address"
+          autoComplete="email"
           name="email"
         />
         <Button
@@ -80,7 +82,7 @@ export default function NewsletterSignUp({
         </Button>
       </div>
       {errors.email && (
-        <p className="text-red-500 mb-2">{`${errors.email.message}`}</p>
+        <p role="alert" className="mb-2 font-medium">{`${errors.email.message}`}</p>
       )}
     </form>
   );

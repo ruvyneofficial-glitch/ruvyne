@@ -1,4 +1,3 @@
-import NewsletterSignUp from "./NewsletterSignUp";
 import PopularArticles from "./PopularArticles";
 import Cover from "./Cover";
 import { Button } from "./ui/button";
@@ -8,25 +7,29 @@ export default async function Sidebar() {
   const settings = await getSiteSettings();
 
   return (
-    <aside>
-      <h3 className="uppercase font-semibold mb-2">Print edition</h3>
-      <p className="text-5xl font-semibold">{settings.printIssue}</p>
-      <Cover
-        className="w-[20rem] aspect-[3/4] mt-8 mb-4"
-        src={settings.printCover}
-        photoAlt={settings.printCoverAlt}
-        kicker="Magazine"
-        cornerLabel={settings.printIssue}
-        tint={{ shadow: "#6b4a3f", highlight: "#d8b7a4" }}
-        sizes="320px"
-      />
-      <Button>Order</Button>
-      <PopularArticles />
-      <div className="bg-[#f8f8f8] p-[1.88rem] mt-16">
-        <h3 className="uppercase font-semibold mb-2">Newsletter</h3>
-        <p className="heading3-title mb-4">Style News to your Inbox</p>
-        <NewsletterSignUp />
-      </div>
+    <aside className="space-y-14">
+      <section aria-labelledby="print-title">
+        <h2 id="print-title" className="kicker">
+          {settings.words.printEdition}
+        </h2>
+        <p className="mt-1 font-display text-5xl">{settings.printIssue}</p>
+        <Cover
+          className="mb-5 mt-6 aspect-[3/4] w-full max-w-[20rem]"
+          src={settings.printCover}
+          photoAlt={settings.printCoverAlt}
+          focus={settings.printCoverFocus}
+          kicker="Magazine"
+          cornerLabel={settings.printIssue}
+          tint={{ shadow: "#5c3f35", highlight: "#d8b7a4" }}
+          sizes="320px"
+        />
+        {settings.printOrderUrl && (
+          <Button asChild>
+            <a href={settings.printOrderUrl}>{settings.words.orderCopy}</a>
+          </Button>
+        )}
+      </section>
+      <PopularArticles picked={settings.popularArticles} heading={settings.words.mostPopular} />
     </aside>
   );
 }

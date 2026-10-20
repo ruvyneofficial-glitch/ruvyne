@@ -49,9 +49,22 @@ const author = {
       rows: 12,
       description: "Separate paragraphs with a blank line.",
     },
+    {
+      name: "social",
+      title: "Social media accounts",
+      type: "array",
+      description: "Shown as Follow icons on the author's page. Drag to reorder.",
+      of: [{ type: "socialLink" }],
+    },
+    { name: "seo", title: "Search & sharing", type: "seo" },
+  ],
+  orderings: [
+    { title: "Name, A to Z", name: "nameAsc", by: [{ field: "name", direction: "asc" }] },
+    { title: "Name, Z to A", name: "nameDesc", by: [{ field: "name", direction: "desc" }] },
+    { title: "City, A to Z", name: "cityAsc", by: [{ field: "city", direction: "asc" }] },
   ],
   preview: {
-    select: { title: "name", subtitle: "job" },
+    select: { title: "name", subtitle: "job", media: "avatar" },
   },
 };
 

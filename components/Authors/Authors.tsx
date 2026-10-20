@@ -1,44 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAuthorCards } from "@/app/functions/getAuthors";
+import { getAuthorCards, orderByTeam } from "@/app/functions/getAuthors";
 
-export default async function Authors() {
-  const authors = await getAuthorCards();
+export default async function Authors({ team }: { team: string[] }) {
+  const authors = orderByTeam(await getAuthorCards(), team, true);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 mb-48 max-w-[95rem] w-full mx-auto border border-black border-collapse">
+    <ul className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
       {authors.map((author) => (
-        <article
-          className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 md:gap-12 p-4 md:p-8 border border-black"
-          key={author.slug}
-        >
-          <Link href={`/authors/${author.slug}`}>
+        <li key={author.slug}>
+          <Link href={`/authors/${author.slug}`} className="group block text-center">
             <Image
-              className="w-[9.375rem] h-[9.375rem] object-cover rounded-full hover:scale-105 transition"
+              className="mx-auto aspect-square w-full max-w-[10rem] rounded-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               src={author.avatar}
               alt={author.imgAlt}
-              width={150}
-              height={150}
-              sizes="150px"
+              width={160}
+              height={160}
+              sizes="160px"
+              style={{ objectPosition: author.avatarFocus }}
             />
-          </Link>
-          <article>
-            <p className="heading3-title mb-4">
-              <Link href={`/authors/${author.slug}`}>{author.name}</Link>
+            <p className="mt-4 font-display text-2xl leading-tight underline-offset-4 group-hover:underline">
+              {author.name}
             </p>
-            <div className="flex gap-8">
-              <span className="flex">
-                <p className="font-semibold pr-2">Job</p>
-                <p className="">{author.job}</p>
-              </span>
-              <span className="flex">
-                <p className="font-semibold pr-2">City</p>
-                <p className="">{author.city}</p>
-              </span>
-            </div>
-          </article>
-        </article>
+            <p className="kicker mt-2 text-muted-foreground">{author.job}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{author.city}</p>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

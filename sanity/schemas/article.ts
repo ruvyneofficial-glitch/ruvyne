@@ -1,7 +1,22 @@
+// Older fields stay visible only while a document still holds a value from
+// before the content upgrade (see the README), then disappear.
+const legacy = {
+  hidden: ({ value }: any) => value === undefined || value === null || value === "",
+};
+
 const article = {
   name: "article",
   title: "Article",
   type: "document",
+  fieldsets: [
+    {
+      name: "legacy",
+      title: "Old article layout",
+      description:
+        "This story's text is still in the old fixed layout. The content upgrade moves it into Body above, after which this box disappears.",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     {
       name: "title",
@@ -24,20 +39,23 @@ const article = {
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: "label",
+      name: "category",
       title: "Category",
+      type: "reference",
+      to: [{ type: "category" }],
+      description: "Add or rename categories under Categories.",
+      validation: (Rule: any) =>
+        Rule.custom((value: unknown, { document }: any) =>
+          value || document?.label ? true : "Pick a category"
+        ),
+    },
+    {
+      name: "label",
+      title: "Old category",
       type: "string",
-      description:
-        "Drives the category filter on /magazine. The filter is built from the distinct values in use, so a typo creates a new category.",
-      options: {
-        list: [
-          { title: "Beauty", value: "Beauty" },
-          { title: "Fashion", value: "Fashion" },
-          { title: "Home Decor", value: "Home Decor" },
-        ],
-        layout: "radio",
-      },
-      validation: (Rule: any) => Rule.required(),
+      readOnly: true,
+      description: "From before categories could be edited. The content upgrade swaps it for the Category above.",
+      ...legacy,
     },
     {
       name: "description",
@@ -49,25 +67,17 @@ const article = {
     {
       name: "date",
       title: "Date",
-      type: "string",
-      description:
-        'Human readable, e.g. "12 August 2026". Parsed with new Date() for sorting, so keep this format.',
+      type: "date",
+      description: "Publication date. Stories are listed newest first by this date.",
+      options: { dateFormat: "D MMMM YYYY" },
+      initialValue: () => new Date().toISOString().slice(0, 10),
+      validation: (Rule: any) => Rule.required(),
     },
     { name: "read", title: "Read time", type: "string" },
-    {
-      name: "popular",
-      title: "Popular",
-      type: "boolean",
-      description: "Include in the Most Popular sidebar list.",
-      initialValue: false,
-    },
-    {
-      name: "popularity",
-      title: "Popularity rank",
-      type: "number",
-      description: "Sort order within Most Popular. Lower shows first.",
-      initialValue: 0,
-    },
+    // Replaced by the drag-and-drop list in Site settings > Homepage; still
+    // read until that list has stories in it.
+    { name: "popular", title: "Popular", type: "boolean", hidden: true },
+    { name: "popularity", title: "Popularity rank", type: "number", hidden: true },
     {
       name: "img",
       title: "Preview image",
@@ -95,38 +105,49 @@ const article = {
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: "summary",
-      title: "Opening summary",
-      type: "text",
-      rows: 4,
+      name: "body",
+      title: "Body",
+      type: "richText",
+      description:
+        "The story. Use the toolbar for headings, bold, links and lists, and the + button for images, pull quotes and videos.",
     },
+    { name: "summary", title: "Opening summary", type: "text", rows: 4, fieldset: "legacy", ...legacy },
+    { name: "section1", title: "Section 1", type: "text", rows: 12, fieldset: "legacy", ...legacy },
+    { name: "quoteText", title: "Pull quote", type: "text", rows: 3, fieldset: "legacy", ...legacy },
+    { name: "quoteAttribution", title: "Quote attribution", type: "string", fieldset: "legacy", ...legacy },
+    { name: "summary2", title: "Bridging summary", type: "text", rows: 3, fieldset: "legacy", ...legacy },
+    { name: "section2", title: "Section 2", type: "text", rows: 12, fieldset: "legacy", ...legacy },
+    { name: "seo", title: "Search & sharing", type: "seo" },
+  ],
+  orderings: [
+    { title: "Date, newest first", name: "dateDesc", by: [{ field: "date", direction: "desc" }] },
+    { title: "Date, oldest first", name: "dateAsc", by: [{ field: "date", direction: "asc" }] },
+    { title: "Title, A to Z", name: "titleAsc", by: [{ field: "title", direction: "asc" }] },
+    { title: "Title, Z to A", name: "titleDesc", by: [{ field: "title", direction: "desc" }] },
     {
-      name: "section1",
-      title: "Section 1",
-      type: "text",
-      rows: 12,
-      description: "Separate paragraphs with a blank line.",
-    },
-    { name: "quoteText", title: "Pull quote", type: "text", rows: 3 },
-    { name: "quoteAttribution", title: "Quote attribution", type: "string" },
-    {
-      name: "summary2",
-      title: "Bridging summary",
-      type: "text",
-      rows: 3,
-    },
-    {
-      name: "section2",
-      title: "Section 2",
-      type: "text",
-      rows: 12,
-      description: "Separate paragraphs with a blank line.",
+      title: "Category",
+      name: "categoryAsc",
+      by: [
+        { field: "category.title", direction: "asc" },
+        { field: "date", direction: "desc" },
+      ],
     },
   ],
   preview: {
-    select: { title: "title", subtitle: "label", author: "author.name" },
-    prepare({ title, subtitle, author }: any) {
-      return { title, subtitle: [subtitle, author].filter(Boolean).join(" / ") };
+    select: {
+      title: "title",
+      category: "category.title",
+      label: "label",
+      author: "author.name",
+      date: "date",
+      media: "img",
+    },
+    prepare({ title, category, label, author, date, media }: any) {
+      return {
+        title,
+        subtitle: [category ?? label, author, date].filter(Boolean).join(" / "),
+        media,
+      };
     },
   },
 };

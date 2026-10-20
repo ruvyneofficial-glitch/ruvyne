@@ -30,7 +30,13 @@ const podcast = {
       type: "number",
       description: "Highest shows first. Use the episode number.",
     },
-    { name: "date", title: "Date", type: "string" },
+    {
+      name: "date",
+      title: "Date",
+      type: "date",
+      options: { dateFormat: "D MMMM YYYY" },
+      initialValue: () => new Date().toISOString().slice(0, 10),
+    },
     { name: "duration", title: "Duration", type: "string" },
     {
       name: "img",
@@ -79,8 +85,19 @@ const podcast = {
       description: "Separate paragraphs with a blank line.",
     },
   ],
+  orderings: [
+    { title: "Episode, newest first", name: "orderDesc", by: [{ field: "order", direction: "desc" }] },
+    { title: "Episode, oldest first", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
+    { title: "Date, newest first", name: "dateDesc", by: [{ field: "date", direction: "desc" }] },
+    { title: "Date, oldest first", name: "dateAsc", by: [{ field: "date", direction: "asc" }] },
+    { title: "Title, A to Z", name: "titleAsc", by: [{ field: "title", direction: "asc" }] },
+    { title: "Title, Z to A", name: "titleDesc", by: [{ field: "title", direction: "desc" }] },
+  ],
   preview: {
-    select: { title: "title", subtitle: "episode" },
+    select: { title: "title", episode: "episode", date: "date", media: "img" },
+    prepare({ title, episode, date, media }: any) {
+      return { title, subtitle: [episode, date].filter(Boolean).join(" / "), media };
+    },
   },
 };
 

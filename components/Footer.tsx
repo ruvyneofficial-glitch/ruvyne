@@ -1,88 +1,57 @@
-"use client";
-
-import NewsletterTicker from "./NewsletterTicker";
-import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
 import Link from "next/link";
-import FooterSocialLinks from "./FooterSocialsLinks";
 import NewsletterSignUp from "./NewsletterSignUp";
-import LogoMark from "./LogoMark";
-import Wordmark from "./Wordmark";
+import SocialLinks from "./SocialLinks";
 import { siteConfig } from "@/lib/site";
+import { logoSrc } from "@/lib/utils";
+import type { SiteSettings } from "@/app/functions/getSiteSettings";
 
-export default function Footer() {
+export default function Footer({ settings }: { settings: SiteSettings }) {
+  const { footerLogo, tagline, social, footerLinks } = settings;
+
   return (
-    <footer className="bg-black overflow-hidden">
-      <NewsletterTicker />
-      <div className="max-w-[95rem] mx-auto px-6">
-        <div className="py-8 xl:py-[128px] grid grid-cols-1 2xl:grid-cols-2 gap-2 md:gap-12 xl:gap-32 items-center">
-          <h2 className="uppercase text-footer-title">
-            Style news to your inbox
-          </h2>
-          <div className="flex flex-wrap lg:justify-end gap-3">
-            <NewsletterSignUp
-              formClassName="flex flex-col gap-4 max-w-[28rem] w-full"
-              formFieldsClassName="flex flex-wrap gap-3"
-              inputClassName="max-w-[20rem]"
-              buttonClassName="bg-white text-black hover:text-white"
+    <footer className="mt-16 bg-footer text-footer-foreground md:mt-24">
+      <div className="mx-auto grid max-w-[95rem] gap-12 px-6 py-14 md:px-8 lg:grid-cols-2 lg:py-20">
+        <div className="flex flex-col items-start gap-6">
+          <Link href="/" className="block">
+            <img
+              src={logoSrc(footerLogo, 320)}
+              alt={`${siteConfig.name}, home`}
+              width={footerLogo.width}
+              height={footerLogo.height}
+              loading="lazy"
+              className="h-32 w-auto md:h-40"
             />
-          </div>
+          </Link>
+          <p className="font-display text-xl italic">{tagline}</p>
+          <SocialLinks links={social} />
         </div>
-        <div className="flex flex-col md:flex-row flex-wrap lg:justify-between gap-6 max-w-[95rem] w-full">
-          <div className="flex items-center gap-4 text-white">
-            <LogoMark className="h-12 w-auto shrink-0" />
-            <Wordmark className="text-white" />
-          </div>
-
-          <div className="flex lg:flex-row max-w-[63.125rem] w-full">
-            <nav className="flex flex-1" aria-label="left-footer-links">
-              <ul className="text-white space-y-3">
-                <li>
-                  <Link href="/magazine">Beauty</Link>
-                </li>
-                <li>
-                  <Link href="/magazine">Fashion</Link>
-                </li>
-                <li>
-                  <Link href="/magazine">Home Decor</Link>
-                </li>
-              </ul>
-            </nav>
-            <nav className="flex flex-1" aria-label="middle-footer-links">
-              <ul className="text-white space-y-3">
-                <li>
-                  <Link href="/magazine">Magazine</Link>
-                </li>
-                <li>
-                  <Link href="/podcasts">Podcast</Link>
-                </li>
-                <li>
-                  <Link href="/authors">Authors</Link>
-                </li>
-              </ul>
-            </nav>
-            <nav className="flex flex-1" aria-label="right-footer-links">
-              <ul className="text-white space-y-3">
-                <li>
-                  <a href="#">Styleguide</a>
-                </li>
-                <li>
-                  <a href="#">Licensing</a>
-                </li>
-                <li>
-                  <a href="#">Changelog</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+        <div className="lg:pt-4">
+          <h2 className="font-display text-[2.25rem] leading-tight md:text-[2.75rem]">
+            {settings.newsletterHeading}
+          </h2>
+          <p className="mb-6 mt-3 opacity-85">{settings.newsletterText}</p>
+          <NewsletterSignUp
+            formFieldsClassName="flex flex-wrap gap-3"
+            inputClassName="max-w-[22rem] flex-1 border-footer-foreground/60 bg-transparent text-footer-foreground placeholder:text-footer-foreground/75 focus-visible:ring-footer-foreground focus-visible:ring-offset-footer"
+            buttonClassName="bg-footer-foreground text-footer hover:bg-footer-foreground/90"
+          />
         </div>
-        <div className="flex flex-wrap flex-col md:flex-row justify-between gap-6 py-3 lg:pt-[6rem] lg:pb-[4.0625rem] w-full">
-          <p className="font-regular text-white">
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
-            reserved. All content belongs to their respective copyright holders.
-          </p>
-          <FooterSocialLinks />
-        </div>
+      </div>
+      <div className="mx-auto max-w-[95rem] px-6 md:px-8">
+        <nav aria-label="Footer" className="border-t border-footer-foreground/25 py-10">
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 lg:grid-cols-6">
+            {footerLinks.map((link) => (
+              <li key={`${link.label}-${link.href}`}>
+                <Link href={link.href} className="kicker underline-offset-4 hover:underline">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="border-t border-footer-foreground/25 py-6 text-sm opacity-85">
+          &copy; {new Date().getFullYear()} {settings.copyright}
+        </p>
       </div>
     </footer>
   );

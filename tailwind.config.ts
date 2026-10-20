@@ -25,8 +25,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        wordmark: [
-          "var(--font-wordmark)",
+        display: [
+          "var(--font-display)",
           "Didot",
           "Georgia",
           "Times New Roman",
@@ -66,6 +66,10 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        footer: {
+          DEFAULT: "hsl(var(--footer))",
+          foreground: "hsl(var(--footer-foreground))",
         },
       },
       borderRadius: {

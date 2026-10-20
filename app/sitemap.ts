@@ -2,17 +2,21 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
 import { getArticleSlugs } from "@/app/functions/getArticleBySlug";
 import { getAuthorSlugs } from "@/app/functions/getAuthors";
-import { getPodcastSlugs } from "@/app/functions/getPodcasts";
+import { getPageSlugs } from "@/app/functions/getPages";
+// Podcasts are switched off.
+// import { getPodcastSlugs } from "@/app/functions/getPodcasts";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [articles, authors, podcasts] = await Promise.all([
-    getArticleSlugs(),
-    getAuthorSlugs(),
-    getPodcastSlugs(),
+  // Anything marked "Hide from Google" in the Studio is left out.
+  const [articles, authors, pages /*, podcasts */] = await Promise.all([
+    getArticleSlugs(true),
+    getAuthorSlugs(true),
+    getPageSlugs(true),
+    // getPodcastSlugs(),
   ]);
   const lastModified = new Date();
 
-  const staticRoutes = ["", "/magazine", "/podcasts", "/authors"].map(
+  const staticRoutes = ["", "/magazine", /* "/podcasts", */ "/authors"].map(
     (route) => ({
       url: `${siteConfig.url}${route}`,
       lastModified,
@@ -29,9 +33,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteConfig.url}/magazine/${slug}`,
       lastModified,
     })),
-    ...podcasts.map((slug) => ({
-      url: `${siteConfig.url}/podcasts/${slug}`,
+    ...pages.map((slug) => ({
+      url: `${siteConfig.url}/${slug}`,
       lastModified,
     })),
+    // ...podcasts.map((slug) => ({
+    //   url: `${siteConfig.url}/podcasts/${slug}`,
+    //   lastModified,
+    // })),
   ];
 }

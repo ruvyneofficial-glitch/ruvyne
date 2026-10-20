@@ -3,24 +3,21 @@ import PageTitle from "@/components/PageTitle";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { pageTitle } from "@/lib/site";
+import { getSiteSettings } from "@/app/functions/getSiteSettings";
 
 export const metadata = {
   title: pageTitle("Authors"),
   description: "Our authors",
 };
 
-export default function AuthorsPage() {
+export default async function AuthorsPage() {
+  const settings = await getSiteSettings();
+
   return (
-    <main className="flex flex-col min-h-screen max-w-[95rem] w-full mx-auto px-4 lg:pt-0 sm:pt-4 xs:pt-2 lg:pb-4 md:pb-4 sm:pb-2 xs:pb-2">
-      <PageTitle
-        className="sr-only"
-        imgSrc="/images/titles/Authors.svg"
-        imgAlt="The word 'Author' in uppercase, bold lettering"
-      >
-        Authors
-      </PageTitle>
+    <main className="mx-auto flex min-h-screen w-full max-w-[95rem] flex-col px-4 md:px-8">
+      <PageTitle intro={settings.words.authorsIntro}>Authors</PageTitle>
       <Suspense fallback={<Loading />}>
-        <AuthorsList />
+        <AuthorsList team={settings.team} />
       </Suspense>
     </main>
   );

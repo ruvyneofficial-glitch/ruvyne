@@ -4,38 +4,33 @@ import Cover from "@/components/Cover";
 
 export default async function LatestPodcasts() {
   const data = await getPodcasts();
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3  xl:grid-cols-3 max-w-[95rem] w-full mx-auto border border-black border-collapse">
-      {data
-        .map((podcast) => (
-          <article className="border border-black p-4 md:p-12" key={podcast.id}>
-            <Link href={`/podcasts/${podcast.slug}`}>
-              <Cover
-                className="w-full aspect-square hover:scale-105 transition"
-                src={podcast.img}
-                photoAlt={podcast.imgAlt}
-                kicker="Podcast"
-                cornerLabel={`EP ${podcast.episode.slice(7).trim()}`}
-                tint={podcast.tint}
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+      {data.slice(0, 3).map((podcast) => (
+        <article className="group" key={podcast.id}>
+          <Link href={`/podcasts/${podcast.slug}`} tabIndex={-1} aria-hidden="true" className="block overflow-hidden">
+            <Cover
+              className="aspect-square w-full transition-transform duration-500 group-hover:scale-[1.03]"
+              src={podcast.img}
+              photoAlt={podcast.imgAlt}
+              kicker="Podcast"
+              cornerLabel={`EP ${podcast.episode.slice(7).trim()}`}
+              tint={podcast.tint}
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </Link>
+          <p className="kicker mt-4 text-accent">{podcast.episode}</p>
+          <h3 className="heading3-title mt-2">
+            <Link href={`/podcasts/${podcast.slug}`} className="underline-offset-4 hover:underline">
+              {podcast.title}
             </Link>
-            <h2 className="heading3-title mt-8 mb-12">
-              <Link href={`/podcasts/${podcast.slug}`}>{podcast.title}</Link>
-            </h2>
-            <div className="flex flex-wrap gap-4">
-              <span className="flex">
-                <p className="font-semibold pr-2">Date</p>
-                <time dateTime={podcast.date}>{podcast.date}</time>
-              </span>
-              <span className="flex">
-                <p className="font-semibold pr-2">Duration</p>
-                <p>{podcast.duration}</p>
-              </span>
-            </div>
-          </article>
-        ))
-        .slice(0, 3)}
+          </h3>
+          <p className="kicker mt-3 text-muted-foreground">
+            <time dateTime={podcast.isoDate || undefined}>{podcast.date}</time> &middot; {podcast.duration}
+          </p>
+        </article>
+      ))}
     </div>
   );
 }

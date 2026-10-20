@@ -15,8 +15,9 @@ export default function NewsTicker({ items }: NewsTickerProps) {
 
   useEffect(() => {
     const ticker = newsText.current;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (ticker) {
+    if (ticker && !still) {
       const tickerWidth = ticker.offsetWidth;
 
       gsap.set(ticker, { x: xPercent });
@@ -38,9 +39,9 @@ export default function NewsTicker({ items }: NewsTickerProps) {
   }, [xPercent]);
 
   return (
-    <div className="flex bg-black text-white py-5 max-w-[95rem] w-full mx-auto relative overflow-hidden">
-      <div className="bg-black z-10 px-6">
-        <span className="flex gap-2 bg-black font-semibold uppercase whitespace-nowrap">
+    <div className="kicker flex bg-primary text-primary-foreground py-3 mt-4 md:mt-6 w-full relative overflow-hidden">
+      <div className="bg-primary z-10 px-4 md:px-6">
+        <span className="flex gap-2 bg-primary font-semibold whitespace-nowrap">
           <p>News</p>
           <p className="block sm:hidden">+++</p>
           <p className="hidden sm:block">Ticker +++</p>

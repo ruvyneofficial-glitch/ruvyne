@@ -21,8 +21,9 @@ export async function sanityFetch<T>(
     `${dataset}?${search.toString()}`;
 
   try {
+    // Studio edits (colours, logo, menu, stories) reach the site within a minute.
     const res = await fetch(url, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     } as RequestInit);
 
     if (!res.ok) {

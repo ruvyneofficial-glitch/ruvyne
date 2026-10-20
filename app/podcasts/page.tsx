@@ -1,27 +1,34 @@
-import PageTitle from "@/components/PageTitle";
-import Loading from "@/components/PodcastsList/loading";
-import PodcastsList from "@/components/PodcastsList/PodcastsList";
-import { Suspense } from "react";
-import { pageTitle } from "@/lib/site";
+import { notFound } from "next/navigation";
 
-export const metadata = {
-  title: pageTitle("Podcasts"),
-  description: "The latest podcasts list",
-};
+// Podcasts are switched off: this route returns 404. To bring it back, delete
+// this stub and uncomment the original page below.
+// Rendered per request: a 404 raised at build time is served with status 200.
+export const dynamic = "force-dynamic";
 
 export default function PodcastsPage() {
-  return (
-    <main className="flex flex-col min-h-screen max-w-[95rem] w-full mx-auto px-4 lg:pt-0 sm:pt-4 xs:pt-2 lg:pb-4 md:pb-4 sm:pb-2 xs:pb-2">
-      <PageTitle
-        className="sr-only"
-        imgSrc="/images/titles/Podcast.svg"
-        imgAlt="The word 'Podcast' in bold, uppercase lettering"
-      >
-        Podcast
-      </PageTitle>
-      <Suspense fallback={<Loading />}>
-        <PodcastsList />
-      </Suspense>
-    </main>
-  );
+  notFound();
 }
+
+// import PageTitle from "@/components/PageTitle";
+// import Loading from "@/components/PodcastsList/loading";
+// import PodcastsList from "@/components/PodcastsList/PodcastsList";
+// import { Suspense } from "react";
+// import { pageTitle } from "@/lib/site";
+//
+// export const metadata = {
+//   title: pageTitle("Podcasts"),
+//   description: "The latest podcasts list",
+// };
+//
+// export default function PodcastsPage() {
+//   return (
+//     <main className="mx-auto flex min-h-screen w-full max-w-[95rem] flex-col px-4 md:px-8">
+//       <PageTitle intro="Conversations on beauty, fashion and the rooms we live in.">
+//         Podcast
+//       </PageTitle>
+//       <Suspense fallback={<Loading />}>
+//         <PodcastsList />
+//       </Suspense>
+//     </main>
+//   );
+// }

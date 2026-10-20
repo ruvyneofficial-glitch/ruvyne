@@ -1,6 +1,5 @@
 "use client";
 
-import LogoMark from "@/components/LogoMark";
 
 const css = `
 @keyframes ruvyne-studio-pulse {
@@ -21,17 +20,21 @@ export default function StudioLoading() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#fff",
+        background: "#f8f3ec",
       }}
       role="status"
       aria-label="Loading Studio"
     >
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <LogoMark
+      <img
+        src="/brand/mark.png"
+        alt=""
+        width={277}
+        height={240}
         className="ruvyne-studio-loading__mark"
         style={{
-          width: 132,
-          height: 98,
+          width: 139,
+          height: 120,
           animation: "ruvyne-studio-pulse 1.8s ease-in-out infinite",
         }}
       />

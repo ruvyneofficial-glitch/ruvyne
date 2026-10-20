@@ -1,31 +1,22 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 type PostNavigationProps = {
   children: React.ReactNode;
-  className?: string;
   href: string;
 };
 
-export default function PostNavigation({
-  children,
-  href,
-}: PostNavigationProps) {
+export default function PostNavigation({ children, href }: PostNavigationProps) {
   return (
-    <div className="flex items-center justify-between py-4 md:pt-8 md:pb-24">
+    <div className="flex items-center justify-between gap-4 py-6 md:pb-12 md:pt-10">
       <Link
-        className="flex items-center gap-2 uppercase font-semibold w-full"
+        className="kicker inline-flex items-center gap-2 transition-colors hover:text-accent"
         href={href}
       >
-        <img
-          className="rotate-180"
-          src="/icons/ri_arrow-right-line.svg"
-          alt="Right arrow"
-        />
-        Go Back
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        Go back
       </Link>
-      <p className="uppercase font-semibold text-lg md:text-[2rem]">
-        {children}
-      </p>
+      <p className="kicker text-muted-foreground">{children}</p>
     </div>
   );
 }

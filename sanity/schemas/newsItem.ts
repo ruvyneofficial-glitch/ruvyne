@@ -19,6 +19,12 @@ const newsItem = {
       initialValue: 0,
     },
   ],
+  orderings: [
+    { title: "Sort order, lowest first", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
+    { title: "Sort order, highest first", name: "orderDesc", by: [{ field: "order", direction: "desc" }] },
+    { title: "Text, A to Z", name: "textAsc", by: [{ field: "text", direction: "asc" }] },
+    { title: "Text, Z to A", name: "textDesc", by: [{ field: "text", direction: "desc" }] },
+  ],
   preview: {
     select: { title: "text", subtitle: "order" },
   },

@@ -1,30 +1,30 @@
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
 import { pageTitle } from "@/lib/site";
+import { getSiteSettings } from "@/app/functions/getSiteSettings";
 
 export const metadata = {
   title: pageTitle("Page not found"),
   description: "Page does not exist",
 };
 
-export default function NotFound() {
+export default async function NotFound() {
+  const { words } = await getSiteSettings();
+
   return (
-    <main className="flex flex-col min-h-screen max-w-[95rem] w-full mx-auto px-4 lg:pt-0 sm:pt-4 xs:pt-2 lg:pb-4 md:pb-4 sm:pb-2 xs:pb-2">
-      <div>
-        <PageTitle
-          className="sr-only"
-          imgSrc="/images/titles/NotFound.svg"
-          imgAlt="The words 'Not Found' in bold uppercase lettering"
-        >
-          Not Found
-        </PageTitle>
-        <h2>
-          The page you&apos;re looking for does not exist. Click{" "}
-          <Link className="font-semibold" href="/">
-            here to return home
-          </Link>
-        </h2>
-      </div>
+    <main className="mx-auto flex min-h-[60vh] w-full max-w-[95rem] flex-col items-center px-4 text-center md:px-8">
+      <PageTitle>{words.notFoundTitle}</PageTitle>
+      <p className="text-lg">
+        {words.notFoundText}{" "}
+        <Link className="underline underline-offset-4" href="/">
+          Return home
+        </Link>{" "}
+        or{" "}
+        <Link className="underline underline-offset-4" href="/search">
+          search the magazine
+        </Link>
+        .
+      </p>
     </main>
   );
 }

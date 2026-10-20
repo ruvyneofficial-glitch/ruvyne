@@ -2,6 +2,6 @@ import { Skeleton } from "../ui/skeleton";
 
 export default function Loading() {
   return (
-    <Skeleton className="bg-[#a1a1a1] max-w-[95rem] h-[64px] rounded-none"></Skeleton>
+    <Skeleton className="bg-border mt-4 md:mt-6 h-[42px] rounded-none"></Skeleton>
   );
 }

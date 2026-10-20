@@ -2,22 +2,19 @@ import { Skeleton } from "../ui/skeleton";
 
 function SkeletonAuthor() {
   return (
-    <Skeleton className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 md:gap-12 p-4 md:p-8 bg-white border border-[#a1a1a1] rounded-none">
-      <Skeleton className="bg-[#a1a1a1] w-[9.375rem] h-[9.375rem] shrink-0 rounded-full" />
-      <div className="flex flex-col gap-4 w-full">
-        <Skeleton className="bg-[#a1a1a1] h-8 w-[60%] rounded-none" />
-        <div className="flex gap-8">
-          <Skeleton className="bg-[#a1a1a1] h-5 w-28 rounded-none" />
-          <Skeleton className="bg-[#a1a1a1] h-5 w-24 rounded-none" />
-        </div>
-      </div>
-    </Skeleton>
+    <div className="flex flex-col items-center gap-3">
+      <Skeleton className="aspect-square w-full max-w-[10rem] rounded-full bg-border" />
+      <Skeleton className="h-6 w-28 rounded-none bg-border" />
+      <Skeleton className="h-3 w-20 rounded-none bg-border" />
+    </div>
   );
 }
 
 export default function Loading() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 mb-48 max-w-[95rem] w-full mx-auto border border-black border-collapse">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
+      <SkeletonAuthor />
+      <SkeletonAuthor />
       <SkeletonAuthor />
       <SkeletonAuthor />
       <SkeletonAuthor />

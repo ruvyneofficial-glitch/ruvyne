@@ -1,49 +1,47 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getAuthorCards } from "@/app/functions/getAuthors";
+import { ArrowRight } from "lucide-react";
+import { getAuthorCards, orderByTeam } from "@/app/functions/getAuthors";
 
-export default async function AuthorsList() {
-  const authors = await getAuthorCards();
+export default async function AuthorsList({ team }: { team: string[] }) {
+  const authors = orderByTeam(await getAuthorCards(), team, false);
 
   return (
-    <div className="flex flex-col max-w-[95rem] w-full mx-auto py-8 lg:pt-24 lg:pb-48">
-      {authors.map((author, index) => (
-        <div key={author.slug}>
-          <article className="flex flex-col md:flex-row justify-between md:items-center gap-2 md:gap-0">
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-16">
-              <Image
-                className="h-[9.375rem] w-[9.375rem] object-cover"
-                src={author.avatar}
-                alt={author.imgAlt}
-                width={150}
-                height={150}
-                sizes="150px"
-              />
-              <h2 className="heading3-title">{author.name}</h2>
-            </div>
-            <div className="flex flex-col lg:flex-row gap-2 lg:gap-24">
-              <div className="flex gap-2">
-                <p className="font-semibold">Job</p>
-                <p>{author.job}</p>
-              </div>
-              <div className="flex gap-2">
-                <p className="font-semibold">City</p>
-                <p>{author.city}</p>
-              </div>
-              <Link className="flex gap-2" href={`/authors/${author.slug}`}>
-                <span className="uppercase font-semibold">About</span>
-                <img
-                  src="/icons/ri_arrow-right-line.svg"
-                  alt="An arrow pointing right"
-                />
+    <ul className="w-full divide-y divide-border pb-12 md:pb-24">
+      {authors.map((author) => (
+        <li
+          key={author.slug}
+          className="grid grid-cols-1 gap-5 py-8 first:pt-0 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-12"
+        >
+          <Image
+            className="h-32 w-32 rounded-full object-cover md:h-36 md:w-36"
+            src={author.avatar}
+            alt={author.imgAlt}
+            width={144}
+            height={144}
+            sizes="144px"
+            style={{ objectPosition: author.avatarFocus }}
+          />
+          <div>
+            <h2 className="font-display text-3xl leading-tight md:text-4xl">
+              <Link href={`/authors/${author.slug}`} className="underline-offset-4 hover:underline">
+                {author.name}
               </Link>
-            </div>
-          </article>
-          {index < authors.length - 1 && (
-            <div className="border border-black my-6" />
-          )}
-        </div>
+            </h2>
+            <p className="kicker mt-2 text-muted-foreground">
+              {author.job} &middot; {author.city}
+            </p>
+          </div>
+          <Link
+            className="kicker inline-flex items-center gap-2 transition-colors hover:text-accent"
+            href={`/authors/${author.slug}`}
+            aria-label={`About ${author.name}`}
+          >
+            About
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
